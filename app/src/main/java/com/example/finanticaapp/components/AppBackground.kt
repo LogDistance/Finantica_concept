@@ -8,12 +8,16 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.BlurredEdgeTreatment
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Canvas
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.rotate
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun AppBackground(
@@ -28,28 +32,28 @@ fun AppBackground(
             .fillMaxSize()
             .background(color = baseColor ),
         content = {
-            Canvas(modifier = Modifier.fillMaxSize()) {
+            Canvas(modifier = Modifier
+                .fillMaxSize()
+                .graphicsLayer(scaleX = 1.25f, scaleY = 1.25f)) {
                 val height = size.height
                 val width = size.width
 
-                drawCircle(
+                drawRect(
                     brush = Brush.radialGradient(
                         colors = listOf(
                             Color(0xFF6E40C9).copy(alpha = 0.35f),
                             Color(0xFF552AAB).copy(alpha = 0.15f),
                             Color.Transparent),
-                        center = Offset(x = 0f, y = height * 0.85f)),
-                    radius = width * 1f
+                        center = Offset(x = 0f, y = height * 0.85f))
                 )
 
-                drawCircle(
+                drawRect(
                     brush = Brush.radialGradient(
                         colors = listOf(
                             Color(0xFF3DA185).copy(alpha = 0.2f),
                             Color(0xFF0091A5).copy(alpha = 0.1f),
                             Color.Transparent),
-                        center = Offset(x = width * 1f, y = height * 0.15f)),
-                    radius = width * 1f
+                        center = Offset(x = width * 1f, y = height * 0.15f))
                 )
             }
             content()
